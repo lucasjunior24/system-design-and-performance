@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersitenVolume
+metadata:
+  name: pv-1
+spec:
+  capacity:
+    storage: 10Gi
+  accessNodes:
+    - ReadWriteOnce
+  gcePersistenDisk:
+    pdName: pv-disk
+  storageClassName: standard

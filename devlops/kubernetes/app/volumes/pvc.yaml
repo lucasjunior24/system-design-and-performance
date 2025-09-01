@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersitenVolumeClaim
+metadata:
+  name: pvc-1
+spec:
+  accessNodes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: standard
