@@ -3,3 +3,5 @@ requests
 python-dotenv
 langchain-ollama
 langchain[groq]
+langchain_community
+langgraph==0.6.6

@@ -58,14 +58,14 @@ templete = """Voce é um jogador do Jogo Bang Dice Game, seu user_id é o 4 e su
     """
 templete_jogada = PromptTemplate(
     template=templete,
-    input_variables=["suas_informaces"],
+    # input_variables=["suas_informaces"],
     partial_variables={"formatacao_de_saida": parseador.get_format_instructions()},
 )
 
 
 conversation = ConversationChain(
     llm=llm,
-    verbose=True,
+    # verbose=True,
     memory=memory,
 )
 
