@@ -17,6 +17,13 @@ class HashTable:
         print(value)
         return value
 
+    def keys(self) -> list:
+        keys = []
+        for n in self.data:
+            keys.append(n[0])
+        print(keys)
+        return keys
+
     def set(self, key: str, value: Any):
         new_data = [key, value]
         if self.data == []:
@@ -28,6 +35,19 @@ class HashTable:
 
             self.data = [new_data] + self.data
         print(self.data)
+
+    def remove(self, key: str):
+        old_size = len(self.data)
+        for n in self.data:
+            if n[0] == key:
+                self.data.remove(n)
+                break
+
+        if old_size == len(self.data):
+            raise Exception("This Key not exists")
+
+        print(self.data)
+        return self.data
 
 
 table_one = HashTable()
@@ -47,3 +67,7 @@ table_one.get("Carlos")
 
 # table_one.get("Maria")
 table_one.get(None)
+table_one.keys()
+print()
+table_one.remove("Mateus")
+table_one.keys()
