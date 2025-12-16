@@ -1,37 +1,56 @@
-from typing import Any
+from typing import Self
+
+
+class Node:
+    def __init__(self, value: int):
+        self.value = value
+        self._next: Node | None = None
+
+    @property
+    def next(self):
+        return self._next
+
+    @next.setter
+    def next(self, value: Self | None):
+        self._next = value
+
+    def __str__(self):
+        return str({"value": self.value, "next": self.next})
 
 
 class LinkedList:
     def __init__(self, value: int):
-        self.head = {"value": value, "next": None}
-        self.tail = self.head
+        node = Node(value)
+        self.head: Node = node
+        self.tail: Node = self.head
         self.length = 1
 
     def append(self, value: int):
-        new_node = {"value": value, "next": None}
-        self.tail["next"] = new_node
-        self.tail = new_node
+        node = Node(value)
+        self.tail.next = node
+        self.tail = node
         self.length += 1
 
     def preppend(self, value: int):
-        new_node = {"value": value, "next": self.head}
-        self.head = new_node
+        node = Node(value)
+        node.next = self.head
+        self.head = node
         self.length += 1
 
     def printList(self):
         lists = []
         currentNode = self.head
         while currentNode != None:
-            lists.append(currentNode["value"])
-            currentNode = currentNode["next"]
+            lists.append(currentNode.value)
+            currentNode = currentNode.next
         print(lists)
 
     def getByValue(self, value: int):
         currentNode = self.head
         while currentNode != None:
-            if currentNode["value"] == value:
+            if currentNode.value == value:
                 break
-            currentNode = currentNode["next"]
+            currentNode = currentNode.next
 
     def getByIndex(self, index: int):
         countIndex = 0
@@ -39,26 +58,25 @@ class LinkedList:
         while currentNode != None:
             if countIndex == index:
                 break
-            currentNode = currentNode["next"]
+            currentNode = currentNode.next
             countIndex += 1
         return currentNode
 
     def insert(self, index: int, value: int):
-        if index > self.length:
-            raise Exception("index é maior que o total de itens na lista")
-        print(
-            "Before: 1 -> 10 -> 20 -> 2",
-            "    Insert index '2' and value '5'   After: 1 -> 10 -> 5 -> 20 -> 2",
-        )
-        newNode = self.getByIndex(index - 1)
-        newNodeEnd = {"value": value, "next": newNode["next"]}
-        currentNode = self.head
-        while currentNode != None:
-            currentNode = currentNode["next"]
-            if currentNode["value"] == newNode["value"]:
-                currentNode["next"] = newNodeEnd
-                break
-        print(self.head)
+        if index >= self.length:
+            self.append(value)
+            return
+
+        if index == 0:
+            self.preppend(value)
+            return
+
+        newNode = Node(value)
+        leaderWithPassNode = self.getByIndex(index - 1)
+
+        newNode.next = leaderWithPassNode.next
+        leaderWithPassNode.next = newNode
+
         self.length += 1
 
 
@@ -74,8 +92,11 @@ print(myLinkedList.tail)
 print(myLinkedList.length)
 myLinkedList.printList()
 myLinkedList.getByValue(16)
-myLinkedList.getByValue(1)
 print()
 print(myLinkedList.getByIndex(1))
 # print(myLinkedList.getByIndex(3))
-myLinkedList.insert(2, 5)
+myLinkedList.insert(200, 4)
+myLinkedList.printList()
+myLinkedList.insert(2, 100)
+print(myLinkedList.length)
+myLinkedList.printList()
