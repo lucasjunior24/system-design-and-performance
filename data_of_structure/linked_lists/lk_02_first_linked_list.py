@@ -1,21 +1,7 @@
-from typing import Self
-
-
 class Node:
     def __init__(self, value: int):
         self.value = value
-        self._next: Node | None = None
-
-    @property
-    def next(self):
-        return self._next
-
-    @next.setter
-    def next(self, value: Self | None):
-        self._next = value
-
-    def __str__(self):
-        return str({"value": self.value, "next": self.next})
+        self.next: Node | None = None
 
 
 class LinkedList:
@@ -79,6 +65,23 @@ class LinkedList:
 
         self.length += 1
 
+    def remove(self, index: int):
+        if index == 0:
+            firstNode = self.head
+            self.head = firstNode.next
+            self.length -= 1
+            return
+        leaderWithPassNode = self.getByIndex(index - 1)
+        if leaderWithPassNode.next == None:
+            print("Este index não existe")
+            return
+        else:
+            removedNode = leaderWithPassNode.next
+            if removedNode.next == None:
+                self.tail = leaderWithPassNode
+            leaderWithPassNode.next = removedNode.next
+            self.length -= 1
+
 
 myLinkedList = LinkedList(value=10)
 print("tail: ", myLinkedList.tail)
@@ -88,9 +91,9 @@ myLinkedList.append(16)
 myLinkedList.preppend(17)
 print()
 print(myLinkedList.head)
-print(myLinkedList.tail)
 print(myLinkedList.length)
 myLinkedList.printList()
+print("tail: ", myLinkedList.tail.value)
 myLinkedList.getByValue(16)
 print()
 print(myLinkedList.getByIndex(1))
@@ -98,5 +101,18 @@ print(myLinkedList.getByIndex(1))
 myLinkedList.insert(200, 4)
 myLinkedList.printList()
 myLinkedList.insert(2, 100)
+print("tail: ", myLinkedList.tail.value)
 print(myLinkedList.length)
 myLinkedList.printList()
+print()
+myLinkedList.remove(0)
+myLinkedList.printList()
+myLinkedList.remove(5)
+myLinkedList.printList()
+print("tail: ", myLinkedList.tail.value)
+myLinkedList.remove(4)
+myLinkedList.printList()
+print("tail: ", myLinkedList.tail.value)
+myLinkedList.insert(100, 58)
+myLinkedList.printList()
+print("tail: ", myLinkedList.tail.value)
