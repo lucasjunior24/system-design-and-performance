@@ -21,6 +21,7 @@ class DoublyLinkedList:
 
     def preppend(self, value: int):
         node = DoublyNode(value)
+        self.head.previous = node
         node.next = self.head
         self.head = node
         self.length += 1
@@ -72,7 +73,9 @@ class DoublyLinkedList:
         newNode = DoublyNode(value)
         leaderWithPassNode = self.getByIndex(index - 1)
         newNode.next = leaderWithPassNode.next
+        newNode.previous = leaderWithPassNode
 
+        leaderWithPassNode.next.previous = newNode
         leaderWithPassNode.next = newNode
 
         self.length += 1
@@ -81,6 +84,7 @@ class DoublyLinkedList:
         if index == 0:
             firstNode = self.head
             self.head = firstNode.next
+            self.head.previous = None
             self.length -= 1
             return
         leaderWithPassNode = self.getByIndex(index - 1)
@@ -91,6 +95,7 @@ class DoublyLinkedList:
             removedNode = leaderWithPassNode.next
             if removedNode.next == None:
                 self.tail = leaderWithPassNode
+            removedNode.next.previous = leaderWithPassNode
             leaderWithPassNode.next = removedNode.next
             self.length -= 1
 
@@ -105,7 +110,7 @@ print()
 
 myLinkedList.printList()
 print(myLinkedList.getByIndex(1).value)
-# print(myLinkedList.getByIndex(3))
+print(myLinkedList.getByIndex(3))
 myLinkedList.insert(200, 4)
 myLinkedList.printList()
 myLinkedList.insert(2, 100)
@@ -113,6 +118,8 @@ print(myLinkedList.length)
 myLinkedList.printList()
 print()
 myLinkedList.remove(0)
+myLinkedList.remove(3)
 myLinkedList.printList()
+print(myLinkedList.length)
 print("Previous")
 myLinkedList.printListPrevious()
