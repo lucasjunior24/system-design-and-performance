@@ -1,24 +1,27 @@
-class Node:
-    def __init__(self, value: int):
-        self.value = value
-        self.next: Node | None = None
+from typing import Self
+from pydantic import BaseModel
+
+
+class Node(BaseModel):
+    value: int
+    next: Self | None = None
 
 
 class LinkedList:
     def __init__(self, value: int):
-        node = Node(value)
+        node = Node(value=value)
         self.head: Node = node
         self.tail: Node = self.head
         self.length = 1
 
     def append(self, value: int):
-        node = Node(value)
+        node = Node(value=value)
         self.tail.next = node
         self.tail = node
         self.length += 1
 
     def preppend(self, value: int):
-        node = Node(value)
+        node = Node(value=value)
         node.next = self.head
         self.head = node
         self.length += 1
@@ -57,7 +60,7 @@ class LinkedList:
             self.preppend(value)
             return
 
-        newNode = Node(value)
+        newNode = Node(value=value)
         leaderWithPassNode = self.getByIndex(index - 1)
 
         newNode.next = leaderWithPassNode.next
@@ -115,4 +118,7 @@ myLinkedList.printList()
 print("tail: ", myLinkedList.tail.value)
 myLinkedList.insert(100, 58)
 myLinkedList.printList()
-print("tail: ", myLinkedList.tail.value)
+print()
+print("tail: ", myLinkedList.tail)
+print()
+print("tail: ", myLinkedList.head)
