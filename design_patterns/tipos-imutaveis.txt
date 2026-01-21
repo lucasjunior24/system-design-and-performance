@@ -1,0 +1,21 @@
+--- TIPOS IMUTÁVEIS --- (Copiados)
+Objetos cujo valor não pode ser alterado após a sua criação
+Em caso de copia o valor da variavel de referencia não muda
+str
+int
+float
+tuple
+bool
+...
+
+
+
+--- TIPOS MUTÁVEIS --- (Passado por referencia)
+Passa o valor pela referencia
+Em caso de copia o valor da variavel de referencia muda
+
+list
+set
+dict
+class (O Usuário pode mudar isso)
+...
