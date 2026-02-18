@@ -47,7 +47,10 @@ class BinarySearchTree:
         else:
             currentNode = self.root
             parentNode = None
-            while currentNode:
+            totalNodes = binarySearchTree.count_nodes_recursive(binarySearchTree.root)
+            count = 0
+            while currentNode and count <= totalNodes:
+                count += 1
                 if value < currentNode.value:
                     parentNode = currentNode
                     currentNode = currentNode.left
@@ -96,6 +99,15 @@ class BinarySearchTree:
         elif currentNode.value > parentNode.value:
             parentNode.right = new_value
 
+    def count_nodes_recursive(self, root: Node):
+        if root is None:
+            return 0
+        return (
+            1
+            + self.count_nodes_recursive(root.left)
+            + self.count_nodes_recursive(root.right)
+        )
+
 
 #       9
 #   4       20
@@ -112,5 +124,6 @@ print(binarySearchTree.root)
 print()
 print(binarySearchTree.remove(0))
 print(binarySearchTree.remove(170))
-# print(binarySearchTree.remove(4))
+print(binarySearchTree.remove(4))
 print(binarySearchTree.root)
+print(binarySearchTree.count_nodes_recursive(binarySearchTree.root))
